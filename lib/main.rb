@@ -1,6 +1,12 @@
 $V= %w{S' S C}
 $T= %w{c d}
 $X = $V[1..2]+$T
+$Stx_list = [] 
+0.upto(500) { |i|  $Stx_list[i] = {
+    'action' => [],
+    'goto' => []
+  }  
+}
 
 $line = []
 $line[0] = %w{S' -> S}
@@ -95,7 +101,7 @@ def goto(m)
   else
     m[point] = m[point + 1]
     m[point + 1] = '`'
-    0.upto($pla) { |i|  
+    0.upto($pla) { |i|           
       if $pro_l[i][0] == m
         $ifrepeat = 1
       end
@@ -103,6 +109,9 @@ def goto(m)
     if  $ifrepeat == 1
       $ifrepeat = 0
       return
+    end
+    if $V.include?(m[point])
+      $Stx_list[$k]['goto'][$V.find_index(m[point])-1] = $pla + 1
     end
     $pla += 1
     $pro_l[$pla][0] = m
@@ -115,17 +124,25 @@ def goto(m)
   end
 end
 
-k = 0
-while k <= $pla do
-  0.upto($numofpro[k] - 1) { |i2|  
-    tmp = [] + $pro_l[k][i2]
+$k = 0
+while $k <= $pla do
+  0.upto($numofpro[$k] - 1) { |i2|  
+    tmp = [] + $pro_l[$k][i2]
     goto(tmp)
   }
-  k += 1
+  $k += 1
 end
+puts $Stx_list[1]['goto']
 0.upto($pla) { |i|  
   0.upto($numofpro[i] - 1) { |i2|  
     print i, "     ", $pro_l[i][i2],"\n"
   }
   puts "--------------------"
+}
+
+0.upto($pla) { |i|  
+  0.upto($V.length - 2) { |i2|  
+    print $Stx_list[i]['goto'][i2], " "
+  }
+  puts
 }

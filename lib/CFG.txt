@@ -1,0 +1,30 @@
+S',S,P,B,O,E,T,F
+v,i,r,s,&,o,e,:,d,f,l,g,p,<,>,=,!,+,-,*,/,(,),m,n,$
+S' -> S
+S -> P v
+P -> i 
+P -> r
+P -> s
+S -> v & E
+S -> v & o
+S -> e B : S d
+S -> f B : S d
+S -> f B : S l : S d
+S -> v & g
+S -> p v
+S -> p o
+B -> E O E
+O -> <
+O -> >
+O -> =
+O -> !
+E -> E + T
+E -> E - T
+E -> T
+T -> T * F
+T -> T / F
+T -> F
+F -> ( E )
+F -> v
+F -> m
+F -> n
